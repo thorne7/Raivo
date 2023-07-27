@@ -1,6 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+// Import the BlogPost and Comment models
+const BlogPost = require('./BlogPost');
+const Comment = require('./Comment');
+
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER,
@@ -19,14 +23,15 @@ const User = sequelize.define('User', {
   },
 });
 
+// Define the associations
 User.hasMany(BlogPost, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-  });
-  
-  User.hasMany(Comment, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-  });
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
+
+User.hasMany(Comment, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
 
 module.exports = User;

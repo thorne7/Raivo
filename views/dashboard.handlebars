@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TechBlog - Dashboard</title>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  
+  {{#if user}}
+    <p>Welcome, {{user.username}}! <a href="/logout">Logout</a></p>
+    <!-- Render the list of user's blog posts -->
+    {{#if user.blogPosts.length}}
+      <h2>Your Blog Posts:</h2>
+      <ul>
+        {{#each user.blogPosts}}
+          <li>
+            <a href="/blog/{{id}}">{{title}}</a> ({{createdAt}})
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>You haven't created any blog posts yet.</p>
+    {{/if}}
+    
+    <!-- Form for adding a new blog post -->
+    <h2>Add a New Blog Post:</h2>
+    <form action="/blog" method="POST">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <br>
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" required></textarea>
+      <br>
+      <button type="submit">Create Post</button>
+    </form>
+  {{else}}
+    <p>Please <a href="/login">login</a> or <a href="/signup">sign up</a> to access the dashboard.</p>
+  {{/if}}
+</body>
+</html>

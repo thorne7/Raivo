@@ -4,6 +4,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sequelize = require('./config/connection'); // Import the sequelize instance
+const userRoutes = require('./controllers/userroutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,20 +25,19 @@ app.use(express.static('public'));
 // Middleware for session management using express-session
 app.use(
   session({
-    secret: 'your-secret-key', // Replace with your own secret key
+    secret: '',
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
       db: sequelize,
     }),
     cookie: {
-      // Set the session expiration time (in milliseconds), for example, 1 hour.
       maxAge: 60 * 60 * 1000,
     },
   })
 );
 
-// Add your routes here once you create them in the controllers folder
+app.use('/api/users', userRoutes);
 
 // Start the server
 sequelize.authenticate().then(() => {

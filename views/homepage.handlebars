@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TechBlog - Homepage</title>
+</head>
+<body>
+  <h1>Welcome to TechBlog</h1>
+  
+  {{#if user}}
+    <p>Welcome, {{user.username}}! <a href="/logout">Logout</a></p>
+    <!-- Render the list of existing blog posts -->
+    {{#if blogPosts.length}}
+      <h2>Existing Blog Posts:</h2>
+      <ul>
+        {{#each blogPosts}}
+          <li>
+            <a href="/blog/{{id}}">{{title}}</a> ({{createdAt}})
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>No blog posts yet.</p>
+    {{/if}}
+  {{else}}
+    <p>Please <a href="/login">login</a> or <a href="/signup">sign up</a> to access the dashboard.</p>
+  {{/if}}
+</body>
+</html>

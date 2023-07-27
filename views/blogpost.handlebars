@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TechBlog - {{blogPost.title}}</title>
+</head>
+<body>
+  <h1>{{blogPost.title}}</h1>
+  <p>Created by {{blogPost.User.username}} on {{blogPost.createdAt}}</p>
+  
+  <p>{{blogPost.content}}</p>
+  
+  <h2>Comments:</h2>
+  {{#if comments.length}}
+    <ul>
+      {{#each comments}}
+        <li>
+          <strong>{{User.username}}:</strong> {{content}} ({{createdAt}})
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No comments yet.</p>
+  {{/if}}
+  
+  {{#if user}}
+    <h3>Add a Comment:</h3>
+    <form action="/comment" method="POST">
+      <input type="hidden" name="postId" value="{{blogPost.id}}">
+      <textarea name="content" required></textarea>
+      <br>
+      <button type="submit">Submit Comment</button>
+    </form>
+  {{else}}
+    <p>Please <a href="/login">login</a> or <a href="/signup">sign up</a> to leave a comment.</p>
+  {{/if}}
+</body>
+</html>
