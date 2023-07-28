@@ -6,7 +6,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialect: 'mysql',
 });
 
-const User = require('./user');
+const User = require('./User');
 
 // Define associations (if any) here
 
